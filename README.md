@@ -1,6 +1,4 @@
-# ies_isaac_diaz_pardo_quizzer
-
-A new Flutter project.
+# IES Isaac Díaz Pardo Quizzer
 
 ## Getting Started
 
