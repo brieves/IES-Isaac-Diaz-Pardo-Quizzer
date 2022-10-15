@@ -15,7 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // Disable debug banner
       debugShowCheckedModeBanner: false,
+      // App title
       title: 'IES Isaac Díaz Pardo Quizzer',
       theme: ThemeData(
         // This is the theme of your application.
@@ -69,6 +71,7 @@ class _HomePageState extends State<HomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         actions: <Widget> [
+          // Text button creation
           TextButton.icon(
             onPressed: (){},
             icon: const Icon(
@@ -114,6 +117,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: 50,
             ),
+            // Title text
             Text(
               'IES Isaac Díaz Pardo Quizzer',
               style: Theme.of(context).textTheme.headline3,
@@ -121,6 +125,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: 30,
             ),
+            // Start button
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(100, 50),
