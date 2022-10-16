@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "243255110196",
+    "firebase_url": "https://ies-isaac-diaz-pardo-quizz-default-rtdb.firebaseio.com",
+    "project_id": "ies-isaac-diaz-pardo-quizz",
+    "storage_bucket": "ies-isaac-diaz-pardo-quizz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243255110196:android:5cafa7ea158705c43c7861",
+        "android_client_info": {
+          "package_name": "com.iesisaacdiazpardoquizzer.ies_isaac_diaz_pardo_quizzer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243255110196-dg96ffre2v408093f3i35rbq87bb41mf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwcqrqOw_ExEPYWDjN2BlOKfz8ixnfTkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243255110196-dg96ffre2v408093f3i35rbq87bb41mf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243255110196:android:9bb646a09cf0d2e23c7861",
+        "android_client_info": {
+          "package_name": "con.naria.quizzer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243255110196-bih7fhccmpt077m0tr869ii8rj4lpfpu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "con.naria.quizzer",
+            "certificate_hash": "ebfe6dd1bb0f3f2e7454d5e226712027ff219779"
+          }
+        },
+        {
+          "client_id": "243255110196-dg96ffre2v408093f3i35rbq87bb41mf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwcqrqOw_ExEPYWDjN2BlOKfz8ixnfTkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243255110196-dg96ffre2v408093f3i35rbq87bb41mf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
