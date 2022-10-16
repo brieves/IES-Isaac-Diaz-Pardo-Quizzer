@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
+import 'widgets/points.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
           // horizontal).
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
+            const SizedBox(
               height: 50,
             ),
             // Title text
@@ -132,7 +133,7 @@ class _HomePageState extends State<HomePage> {
               style: Theme.of(context).textTheme.headline3,
               textAlign: TextAlign.center,
             ),
-            Container(
+            const SizedBox(
               height: 30,
             ),
             // Start button
@@ -155,6 +156,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            Points(),
           ],
         ),
       ),
