@@ -9,8 +9,8 @@ class Points extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
-          width: MediaQuery.of(context).size.width * 0.5,
+          height: MediaQuery.of(context).size.height * 0.4,
+          width: MediaQuery.of(context).size.width * 0.9,
           child: Card(
             clipBehavior: Clip.antiAlias,
             child: Table(
