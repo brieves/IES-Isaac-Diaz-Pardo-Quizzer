@@ -8,6 +8,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:ies_isaac_diaz_pardo_quizzer/widgets/points.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
+List _questions = [];
+var quest;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +49,7 @@ class Structure extends StatelessWidget {
 Widget _buildBody(BuildContext context) {
   CollectionReference preguntas =
       FirebaseFirestore.instance.collection('preguntas');
+  getData();
 
   return FutureBuilder<DocumentSnapshot>(
       // Get document Question 1
@@ -67,84 +70,87 @@ Widget _buildBody(BuildContext context) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           return Center(
-            child: Container(
-              // padding: EdgeInsetsGeometry.infinity,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 16,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 16,
+                ),
+                // The question
+                Text(
+                  "${data['pregunta']}",
+                  style: Theme.of(context).textTheme.headline4,
+                  textAlign: TextAlign.center,
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    children: [
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          // Repuesta 1
+                          OutlinedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(100, 50),
+                            ),
+                            child: Text(
+                              "${data['respuesta1']}",
+                              style: const TextStyle(
+                                fontSize: 26,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          OutlinedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(100, 50),
+                            ),
+                            child: Text(
+                              "${data['respuesta2']}",
+                              style: const TextStyle(
+                                fontSize: 26,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          OutlinedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(100, 50),
+                            ),
+                            child: Text(
+                              "${data['respuesta3']}",
+                              style: const TextStyle(
+                                fontSize: 26,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Text(
+                            "$quest",
+                            maxLines: 10,
+                            style: const TextStyle(
+                              fontSize: 7,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  // The question
-                  Text(
-                    "${data['pregunta']}",
-                    style: Theme.of(context).textTheme.headline4,
-                    textAlign: TextAlign.center,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            // Repuesta 1
-                            OutlinedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(100, 50),
-                              ),
-                              child: Text(
-                                "${data['respuesta1']}",
-                                style: const TextStyle(
-                                  fontSize: 26,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            OutlinedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(100, 50),
-                              ),
-                              child: Text(
-                                "${data['respuesta2']}",
-                                style: const TextStyle(
-                                  fontSize: 26,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            OutlinedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(100, 50),
-                              ),
-                              child: Text(
-                                "${data['respuesta3']}",
-                                style: const TextStyle(
-                                  fontSize: 26,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            const Points(),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         }
@@ -153,4 +159,14 @@ Widget _buildBody(BuildContext context) {
           child: CircularProgressIndicator(),
         );
       });
+}
+
+void getData() async {
+  await for (var questions
+      in FirebaseFirestore.instance.collection('preguntas').snapshots()) {
+    for (var questions in questions.docs.toList()) {
+      quest = questions.reference;
+      return;
+    }
+  }
 }
