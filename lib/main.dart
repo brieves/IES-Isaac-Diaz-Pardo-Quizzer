@@ -1,9 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ies_isaac_diaz_pardo_quizzer/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 
+import 'package:ies_isaac_diaz_pardo_quizzer/firebase_options.dart';
 import 'package:ies_isaac_diaz_pardo_quizzer/question.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
+
+FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -98,106 +103,61 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: _buildBody(context),
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke "debug painting" (press "p" in the console, choose the
+          // "Toggle Debug Paint" action from the Flutter Inspector in Android
+          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+          // to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: 50,
+            ),
+            // Title text
+            Text(
+              'IES Isaac Díaz Pardo Quizzer',
+              style: Theme.of(context).textTheme.headline3,
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              height: 30,
+            ),
+            // Start button
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(100, 50),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const QuestionScreen()),
+                );
+              },
+              child: const Text(
+                'Empezar',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 26,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
-}
-// Center(
-//   // Center is a layout widget. It takes a single child and positions it
-//   // in the middle of the parent.
-//   child: Column(
-//     // Column is also a layout widget. It takes a list of children and
-//     // arranges them vertically. By default, it sizes itself to fit its
-//     // children horizontally, and tries to be as tall as its parent.
-//     //
-//     // Invoke "debug painting" (press "p" in the console, choose the
-//     // "Toggle Debug Paint" action from the Flutter Inspector in Android
-//     // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-//     // to see the wireframe for each widget.
-//     //
-//     // Column has various properties to control how it sizes itself and
-//     // how it positions its children. Here we use mainAxisAlignment to
-//     // center the children vertically; the main axis here is the vertical
-//     // axis because Columns are vertical (the cross axis would be
-//     // horizontal).
-//     // mainAxisAlignment: MainAxisAlignment.center,
-//     children: <Widget>[
-//       Container(
-//         height: 50,
-//       ),
-//       // Title text
-//       Text(
-//         'IES Isaac Díaz Pardo Quizzer',
-//         style: Theme.of(context).textTheme.headline3,
-//         textAlign: TextAlign.center,
-//       ),
-//       Container(
-//         height: 30,
-//       ),
-//       // Start button
-//       ElevatedButton(
-//         style: ElevatedButton.styleFrom(
-//           minimumSize: const Size(100, 50),
-//         ),
-//         onPressed: () {
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//                 builder: (context) => const QuestionScreen()),
-//           );
-//         },
-//         child: const Text(
-//           'Empezar',
-//           textAlign: TextAlign.center,
-//           style: TextStyle(
-//             fontSize: 26,
-//           ),
-//         ),
-//       ),
-//     ],
-//   ),
-// ),
-
-Widget _buildBody(BuildContext context) {
-  return StreamBuilder<QuerySnapshot>(
-    stream: FirebaseFirestore.instance
-    .collection('preguntas')
-    .snapshots(),
-    builder: (context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return const Center(
-          child: LinearProgressIndicator(),
-        );
-      } else {
-        if (snapshot.error != null) {
-          return const Center(
-            child: Text('An error has occured'),
-          );
-        } else { Row(
-            children: [
-              Column(
-                children: [
-                  Text(
-                    'Pregunta',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                ],
-              ),
-              ListView(
-                padding: const EdgeInsets.only(top: 20.0),
-                children:[
-                  snapshot.data!.docs.map((doc) {
-                    return ListTile(
-                      title: Text(doc['respuesta1']),
-                      onTap: () {},
-                    );
-                  }).toList()
-                ],
-              ),  
-            ],
-          );
-        }
-      }
-    }
-  );
 }
