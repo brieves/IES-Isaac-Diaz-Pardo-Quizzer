@@ -162,11 +162,13 @@ Widget _buildBody(BuildContext context) {
 }
 
 void getData() async {
-  await for (var questions
-      in FirebaseFirestore.instance.collection('preguntas').snapshots()) {
-    for (var questions in questions.docs.toList()) {
-      quest = questions.reference;
-      return;
-    }
+  FirebaseFirestore.instance
+      .collection('users')
+      .get()
+      .then((QuerySnapshot querySnapshot) {
+    querySnapshot.docs.forEach((doc) {
+      print(doc["first_name"]);
+    });
+  });
+
   }
-}

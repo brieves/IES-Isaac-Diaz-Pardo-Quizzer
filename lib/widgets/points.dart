@@ -16,7 +16,9 @@ class Points extends StatelessWidget {
             child: Table(
               children: const [
                 TableRow(
-                  children: [TableCell(child: Text('Hola'))],
+                  children: [TableCell(
+                      child: Text('Hola')
+                  )],
                 ),
               ],
             ),
