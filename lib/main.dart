@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const SizedBox(
-                height: 50,
+                height: 48,
               ),
               // Title text
               Text(
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
-                height: 30,
+                height: 32,
               ),
               // Start button
               ElevatedButton(
@@ -151,23 +151,23 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const Spacer(),
-              SizedBox(
-                height: 300.0,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Points',
-                          style: Theme.of(context).textTheme.headline2,
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Puntos',
+                              style: Theme.of(context).textTheme.headline2,
+                            ),
+                            points(context),
+                          ],
                         ),
-                        points(context),
-                      ],
+                      ),
                     ),
-                  ),
                 ),
-              )
             ],
           ),
         ),

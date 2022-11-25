@@ -10,7 +10,7 @@ Widget points(BuildContext context) {
         return ListView.builder(
             scrollDirection: Axis.vertical,
             physics: const ScrollPhysics(),
-            padding: const EdgeInsets.only(top: 24),
+            padding: const EdgeInsets.only(top: 8),
             shrinkWrap: true,
             itemCount: snapshot.data?.docs.length,
             itemBuilder: (BuildContext context, int index) {
