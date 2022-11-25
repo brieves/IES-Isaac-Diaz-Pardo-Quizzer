@@ -1,15 +1,9 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'package:ies_isaac_diaz_pardo_quizzer/firebase_options.dart';
 import 'package:ies_isaac_diaz_pardo_quizzer/main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:ies_isaac_diaz_pardo_quizzer/widgets/points.dart';
 
-FirebaseFirestore firestore = FirebaseFirestore.instance;
-List _questions = [];
-var quest;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,149 +20,103 @@ class QuestionScreen extends StatelessWidget {
       title: 'IES Isaac Díaz Pardo Quizzer',
       home: const Structure(),
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.purple,
       ),
     );
   }
 }
 
+List data = [];
+
 class Structure extends StatelessWidget {
   const Structure({Key? key}) : super(key: key);
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('IES Isaac Díaz Pardo Quizzer'),
       ),
-      body: _buildBody(context),
+      body: const QuestionPage(title: 'IES Isaac Díaz Pardo Quizzer'),
     );
   }
 }
 
-Widget _buildBody(BuildContext context) {
-  CollectionReference preguntas =
-      FirebaseFirestore.instance.collection('preguntas');
-  getData();
 
-  return FutureBuilder<DocumentSnapshot>(
-      // Get document Question 1
-      future: preguntas.doc('Question 1').get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        // If an error ocurred
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
+class QuestionPage extends StatefulWidget {
+  const QuestionPage({Key? key, required this.title}) : super(key: key);
 
-        // If the document doesn't exist
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return const Text('Document does not exist');
-        }
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          return Center(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                // The question
-                Text(
-                  "${data['pregunta']}",
-                  style: Theme.of(context).textTheme.headline4,
-                  textAlign: TextAlign.center,
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 16.0,
-                          ),
-                          // Repuesta 1
-                          OutlinedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(100, 50),
-                            ),
-                            child: Text(
-                              "${data['respuesta1']}",
-                              style: const TextStyle(
-                                fontSize: 26,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
-                          OutlinedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(100, 50),
-                            ),
-                            child: Text(
-                              "${data['respuesta2']}",
-                              style: const TextStyle(
-                                fontSize: 26,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16.0,
-                          ),
-                          OutlinedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(100, 50),
-                            ),
-                            child: Text(
-                              "${data['respuesta3']}",
-                              style: const TextStyle(
-                                fontSize: 26,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Text(
-                            "$quest",
-                            maxLines: 10,
-                            style: const TextStyle(
-                              fontSize: 7,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
 
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      });
+  final String title;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
 }
 
-void getData() async {
-  FirebaseFirestore.instance
-      .collection('users')
-      .get()
-      .then((QuerySnapshot querySnapshot) {
-    querySnapshot.docs.forEach((doc) {
-      print(doc["first_name"]);
-    });
-  });
-
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+        actions: <Widget>[
+          // Text button creation
+          TextButton.icon(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.military_tech,
+              size: 32,
+            ),
+            label: const Text(
+                '100'
+            ),
+          ),
+        ],
+      ),
+      body: Center(child:
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance.collection('punctuation')
+                  .snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) return const CircularProgressIndicator();
+                return ListView.builder(
+                    itemCount: snapshot.data?.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        children: <Widget>[
+                          Text(
+                            snapshot.data?.docs[index].get('name'),
+                            style: const TextStyle(
+                                height: 2.0
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(snapshot.data?.docs[index].get('name'),
+                          ),
+                        ],
+                      );
+                    }
+                );
+              }
+          )
+      ),
+    );
   }
+}

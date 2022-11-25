@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
       // App title
       title: 'IES Isaac Díaz Pardo Quizzer',
       theme: ThemeData(
+        useMaterial3: true,
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -87,78 +88,88 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(
               Icons.military_tech,
               size: 32,
-              color: Colors.white,
             ),
             label: const Text(
-              '100',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
+            '100'
             ),
-            // style: ButtonStyle(
-            //   textStyle: MaterialStateTextStyle.resolveWith((states) => const TextStyle(
-            //     color: Colors.white,
-            //   )),
-            // ),
           ),
         ],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const SizedBox(
-              height: 50,
-            ),
-            // Title text
-            Text(
-              'IES Isaac Díaz Pardo Quizzer',
-              style: Theme.of(context).textTheme.headline3,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            // Start button
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(100, 50),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Column(
+            // Column is also a layout widget. It takes a list of children and
+            // arranges them vertically. By default, it sizes itself to fit its
+            // children horizontally, and tries to be as tall as its parent.
+            //
+            // Invoke "debug painting" (press "p" in the console, choose the
+            // "Toggle Debug Paint" action from the Flutter Inspector in Android
+            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+            // to see the wireframe for each widget.
+            //
+            // Column has various properties to control how it sizes itself and
+            // how it positions its children. Here we use mainAxisAlignment to
+            // center the children vertically; the main axis here is the vertical
+            // axis because Columns are vertical (the cross axis would be
+            // horizontal).
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 50,
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const QuestionScreen()),
-                );
-              },
-              child: const Text(
-                'Empezar',
+              // Title text
+              Text(
+                'IES Isaac Díaz Pardo Quizzer',
+                style: Theme.of(context).textTheme.headline1,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 26,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              // Start button
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  onPrimary: Theme.of(context).colorScheme.onPrimary,
+                  primary: Theme.of(context).colorScheme.primary,
+                ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const QuestionScreen()),
+                  );
+                },
+                child: const Text(
+                  'Empezar',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 26,
+                  ),
                 ),
               ),
-            ),
-            const Spacer(),
-            const Points(),
-          ],
+              const Spacer(),
+              SizedBox(
+                height: 300.0,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Points',
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
+                        points(context),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
